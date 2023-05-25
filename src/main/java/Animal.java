@@ -1,15 +1,30 @@
+import java.util.Random;
+
 public abstract class Animal implements Existence {
-    private int x;
-    private int y;
-    private int movementSpeed;
-    private String foodType;
-    private String fightType;
+    protected int x;
+    protected int y;
+    protected int movementSpeed;
+    protected String foodType;
+    protected String fightType;
+    protected String species;
+    protected String symbol;
     public Animal(int x, int y, int movementSpeed, String foodType, String fightType) {
         this.x = x;
         this.y = y;
         this.movementSpeed = movementSpeed;
         this.foodType = foodType;
         this.fightType = fightType;
+    }
+    public int genDirection(int max) {
+        Random rd = new Random();
+        int direction = rd.nextInt(max) + 1;
+        return direction;
+    }
+    public int getX() {
+        return x;
+    }
+    public int getY() {
+        return y;
     }
     @Override
     public abstract void move(int x, int y);
