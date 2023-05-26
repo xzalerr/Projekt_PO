@@ -2,6 +2,7 @@ import java.util.Random;
 
 public class Main {
     public static void main(String[] args) {
+        //testowe drukowanie
         // Utworzenie obiektu planszy
         Board board = new Board(10, 10); // przykładowe wymiary planszy
 
