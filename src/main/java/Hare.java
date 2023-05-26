@@ -1,3 +1,5 @@
+import java.util.Random;
+
 public class Hare extends Animal {
     private int escapeRange;
     public Hare(int x, int y, int movementSpeed, String foodType, String fightType, int escapeRange) {
@@ -17,6 +19,12 @@ public class Hare extends Animal {
     public int getY() {
         return super.getY();
     }
+
+    @Override
+    public String getFightType() {
+        return super.getFightType();
+    }
+
     @Override
     public void move(int x, int y) {
         int direction = genDirection(2);
@@ -38,8 +46,22 @@ public class Hare extends Animal {
     }
 
     @Override
-    public void fight() {
-        //implementacja
+    public Animal fightLoser(Animal other) {
+        Random rd = new Random();
+        int chances = rd.nextInt(100) + 1;
+        if(other.getFightType() == "bite") {
+            if(chances<=1) {
+                return other;
+            } else {
+                return this;
+            }
+        }  else {
+            if(chances<=30) {
+                return other;
+            } else {
+                return this;
+            }
+        }
     }
 
     public void escape() {

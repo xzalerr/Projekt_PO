@@ -6,7 +6,6 @@ public abstract class Animal implements Existence {
     protected int movementSpeed;
     protected String foodType;
     protected String fightType;
-    protected String species;
     protected String symbol;
     public Animal(int x, int y, int movementSpeed, String foodType, String fightType) {
         this.x = x;
@@ -26,8 +25,11 @@ public abstract class Animal implements Existence {
     public int getY() {
         return y;
     }
+    public String getFightType() {
+        return fightType;
+    }
     @Override
     public abstract void move(int x, int y);
     @Override
-    public abstract void fight();
+    public abstract Animal fightLoser(Animal other);
 }

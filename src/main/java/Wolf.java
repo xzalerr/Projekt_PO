@@ -1,3 +1,5 @@
+import java.util.Random;
+
 public class Wolf extends Animal {
     private int huntingRange;
     public Wolf(int x, int y, int movementSpeed, String foodType, String fightType, int huntingRange) {
@@ -17,6 +19,12 @@ public class Wolf extends Animal {
     public int getY() {
         return super.getY();
     }
+
+    @Override
+    public String getFightType() {
+        return super.getFightType();
+    }
+
     @Override
     public void move(int x, int y) {
        int direction = genDirection(4);
@@ -46,8 +54,28 @@ public class Wolf extends Animal {
     }
 
     @Override
-    public void fight() {
-        //implementacja
+    public Animal fightLoser(Animal other) {
+        Random rd = new Random();
+        int chances = rd.nextInt(100) + 1;
+        if(other.getFightType() == "kick") {
+            if(chances<=75) {
+                return other;
+            } else {
+                return this;
+            }
+        } else if(other.getFightType() == "scratch"){
+            if(chances<=90) {
+                return other;
+            } else {
+                return this;
+            }
+        } else {
+            if(chances<=99) {
+                return other;
+            } else {
+                return this;
+            }
+        }
     }
 
     public void hunt() {

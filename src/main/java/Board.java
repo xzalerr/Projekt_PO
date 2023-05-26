@@ -15,25 +15,18 @@ public class Board {
         //metoda usuwa zwierze z miejsca na planszy po przegranej walce
         animals[x][y] = null;
     }
+    public void removeLoserAnimal(Animal loser) {
+        //metoda usuwa zwierze z miejsca na planszy po przegranej walce
+        animals[loser.getX()][loser.getY()] = null;
+    }
     public void moveAnimal(int fromX, int fromY) {
         //metoda porusza zwierze z punktu a do b, w zaleznosci od metody move() danego gatunku
         Animal relocated = animals[fromX][fromY];
         relocated.move(fromX, fromY);
         int toX = relocated.getX();
         int toY = relocated.getY();
-        if(toX < width && toY < height) {
-            animals[toX][toY] = animals[fromX][fromY];
-            removeAnimal(fromX, fromY);
-        } else if(toX >= width && toY < height) {
-            animals[toX-width][toY] = animals[fromX][fromY];
-            removeAnimal(fromX, fromY);
-        } else if(toX < width && toY >= height) {
-            animals[toX][toY-height] = animals[fromX][fromY];
-            removeAnimal(fromX, fromY);
-        } else {
-            animals[toX-width][toY-height] = animals[fromX][fromY];
-            removeAnimal(fromX, fromY);
-        }
+        animals[toX][toY] = animals[fromX][fromY];
+        removeAnimal(fromX, fromY);
     }
     public boolean isOccupied(int x, int y) {
         //metoda sprawdza czy na danym polu planszy znajduje sie inne zwierze niz to ktore sie tam przemiescilo
