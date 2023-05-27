@@ -1,23 +1,32 @@
-import java.util.Random;
-
 public class Main {
     public static void main(String[] args) {
-        //testowe drukowanie
-        // Utworzenie obiektu planszy
-        Board board = new Board(10, 10); // przykładowe wymiary planszy
+        Board board = new Board(5, 5);
 
-        // Dodanie zwierząt do planszy
-        Animal wolf = new Wolf(3, 4, 2, "meat", "bite", 2); // przykładowe współrzędne wilka
-        Animal lion = new RoeDeer(7, 2, 2, "meat", "bite", 2); // przykładowe współrzędne lwa
+        Animal wolf = new Wolf(3, 4, 2, "meat", "bite", 2);
+        Animal roe = new RoeDeer(4, 2, 3, "herbs", "kick", 3);
+        Animal fox = new Fox(1, 1, 1, "meat", "scratch", 2);
+        Animal hare = new Hare(1, 3, 2, "herbs", "punch", 1);
         board.addAnimal(wolf, wolf.getX(), wolf.getY());
-        board.addAnimal(lion, lion.getX(), lion.getY());
+        board.addAnimal(roe, roe.getX(), roe.getY());
+        board.addAnimal(fox, fox.getX(), fox.getY());
+        board.addAnimal(hare, hare.getX(), hare.getY());
 
-        // Wyświetlenie stanu planszy przez 5 iteracji
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 30; i++) {
             displayBoard(board);
             // Przesunięcie zwierząt
-            board.moveAnimal(wolf.getX(), wolf.getY()); // przykładowe przesunięcie wilka
-            board.moveAnimal(lion.getX(), lion.getY()); // przykładowe przesunięcie lwa
+            if (board.getAnimal(wolf.getX(), wolf.getY()) != null) {
+                board.moveAnimal(wolf.getX(), wolf.getY());
+            }
+            if (board.getAnimal(roe.getX(), roe.getY()) != null) {
+                board.moveAnimal(roe.getX(), roe.getY());
+            }
+            if (board.getAnimal(fox.getX(), fox.getY()) != null) {
+                board.moveAnimal(fox.getX(), fox.getY());
+            }
+            if (board.getAnimal(hare.getX(), hare.getY()) != null) {
+                board.moveAnimal(hare.getX(), hare.getY());
+            }
+
         }
     }
 

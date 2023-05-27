@@ -19,7 +19,18 @@ public class Fox extends Animal {
     public int getY() {
         return super.getY();
     }
-
+    @Override
+    public void setX(int x) {
+        super.setX(x);
+    }
+    @Override
+    public void setY(int y) {
+        super.setY(y);
+    }
+    @Override
+    public String getFoodType() {
+        return super.getFoodType();
+    }
     @Override
     public String getFightType() {
         return super.getFightType();
@@ -37,6 +48,8 @@ public class Fox extends Animal {
         }
         if(this.x>=Board.getWidth()) {
             this.x -= Board.getWidth();
+        } else if(this.x < 0) {
+            this.x += Board.getWidth();
         }
         if(this.y>=Board.getHeight()) {
             this.y -= Board.getHeight();
@@ -49,13 +62,13 @@ public class Fox extends Animal {
     public Animal fightLoser(Animal other) {
         Random rd = new Random();
         int chances = rd.nextInt(100) + 1;
-        if(other.getFightType() == "kick") {
+        if(other.getFightType().equals("kick")) {
             if(chances<=35) {
                 return other;
             } else {
                 return this;
             }
-        } else if(other.getFightType() == "bite"){
+        } else if(other.getFightType().equals("bite")){
             if(chances<=10) {
                 return other;
             } else {

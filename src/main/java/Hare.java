@@ -19,7 +19,19 @@ public class Hare extends Animal {
     public int getY() {
         return super.getY();
     }
+    @Override
+    public void setX(int x) {
+        super.setX(x);
+    }
+    @Override
+    public void setY(int y) {
+        super.setY(y);
+    }
 
+    @Override
+    public String getFoodType() {
+        return super.getFoodType();
+    }
     @Override
     public String getFightType() {
         return super.getFightType();
@@ -42,6 +54,8 @@ public class Hare extends Animal {
         }
         if(this.y>=Board.getHeight()) {
             this.y -= Board.getHeight();
+        } else if(this.y < 0) {
+            this.y += Board.getHeight();
         }
     }
 
@@ -49,7 +63,7 @@ public class Hare extends Animal {
     public Animal fightLoser(Animal other) {
         Random rd = new Random();
         int chances = rd.nextInt(100) + 1;
-        if(other.getFightType() == "bite") {
+        if(other.getFightType().equals("bite")) {
             if(chances<=1) {
                 return other;
             } else {

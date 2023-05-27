@@ -19,7 +19,18 @@ public class RoeDeer  extends Animal {
     public int getY() {
         return super.getY();
     }
-
+    @Override
+    public void setX(int x) {
+        super.setX(x);
+    }
+    @Override
+    public void setY(int y) {
+        super.setY(y);
+    }
+    @Override
+    public String getFoodType() {
+        return super.getFoodType();
+    }
     @Override
     public String getFightType() {
         return super.getFightType();
@@ -37,6 +48,8 @@ public class RoeDeer  extends Animal {
         }
         if(this.x>=Board.getWidth()) {
             this.x -= Board.getWidth();
+        } else if(this.x < 0) {
+            this.x += Board.getWidth();
         }
         if(this.y>=Board.getHeight()) {
             this.y -= Board.getHeight();
@@ -49,7 +62,7 @@ public class RoeDeer  extends Animal {
     public Animal fightLoser(Animal other) {
         Random rd = new Random();
         int chances = rd.nextInt(100) + 1;
-        if(other.getFightType() == "bite") {
+        if(other.getFightType().equals("bite")) {
             if(chances<=25) {
                 return other;
             } else {
@@ -63,7 +76,6 @@ public class RoeDeer  extends Animal {
             }
         }
     }
-
     public void escape() {
         //implementacja
     }

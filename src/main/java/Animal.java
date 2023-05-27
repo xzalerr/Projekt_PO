@@ -25,8 +25,17 @@ public abstract class Animal implements Existence {
     public int getY() {
         return y;
     }
+    public void setX(int x) {
+        this.x = x;
+    }
+    public void setY(int y) {
+        this.y = y;
+    }
     public String getFightType() {
         return fightType;
+    }
+    public String getFoodType() {
+        return foodType;
     }
     @Override
     public abstract void move(int x, int y);

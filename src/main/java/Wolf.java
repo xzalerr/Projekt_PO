@@ -19,7 +19,18 @@ public class Wolf extends Animal {
     public int getY() {
         return super.getY();
     }
-
+    @Override
+    public void setX(int x) {
+        super.setX(x);
+    }
+    @Override
+    public void setY(int y) {
+        super.setY(y);
+    }
+    @Override
+    public String getFoodType() {
+        return super.getFoodType();
+    }
     @Override
     public String getFightType() {
         return super.getFightType();
@@ -57,13 +68,13 @@ public class Wolf extends Animal {
     public Animal fightLoser(Animal other) {
         Random rd = new Random();
         int chances = rd.nextInt(100) + 1;
-        if(other.getFightType() == "kick") {
+        if(other.getFightType().equals("kick")) {
             if(chances<=75) {
                 return other;
             } else {
                 return this;
             }
-        } else if(other.getFightType() == "scratch"){
+        } else if(other.getFightType().equals("scratch")){
             if(chances<=90) {
                 return other;
             } else {
