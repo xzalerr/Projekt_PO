@@ -2,9 +2,9 @@ import java.util.Random;
 
 public class Wolf extends Animal {
     private int huntingRange;
-    public Wolf(int x, int y, int movementSpeed, String foodType, String fightType, int huntingRange) {
+    public Wolf(int x, int y, int movementSpeed, String foodType, String fightType) {
         super(x, y, movementSpeed, foodType, fightType);
-        this.huntingRange = huntingRange;
+        this.huntingRange = 2;
         this.symbol = "W";
     }
     @Override
@@ -89,7 +89,24 @@ public class Wolf extends Animal {
         }
     }
 
-    public void hunt() {
-        //implementacja
+    public int[] hunt(int x, int y) {
+        int[] coords = new int[16];
+        coords[0] = x-1;
+        coords[1] = y;
+        coords[2] = x-2;
+        coords[3] = y;
+        coords[4] = x+1;
+        coords[5] = y;
+        coords[6] = x+2;
+        coords[7] = y;
+        coords[8] = x;
+        coords[9] = y-1;
+        coords[10] = x;
+        coords[11] = y-2;
+        coords[12] = x;
+        coords[13] = y+1;
+        coords[14] = x;
+        coords[15] = y+2;
+        return coords;
     }
 }

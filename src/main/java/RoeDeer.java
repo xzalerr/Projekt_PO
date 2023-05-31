@@ -76,7 +76,16 @@ public class RoeDeer  extends Animal {
             }
         }
     }
-    public void escape() {
-        //implementacja
+    public int[] escape(int x, int y) {
+        int[] coords = new int[8];
+        coords[0] = x-3;
+        coords[1] = y;
+        coords[2] = x+3;
+        coords[3] = y;
+        coords[4] = x;
+        coords[5] = y+3;
+        coords[6] = x;
+        coords[7] = y-3;
+        return coords;
     }
 }

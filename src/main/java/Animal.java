@@ -37,6 +37,7 @@ public abstract class Animal implements Existence {
     public String getFoodType() {
         return foodType;
     }
+
     @Override
     public abstract void move(int x, int y);
     @Override

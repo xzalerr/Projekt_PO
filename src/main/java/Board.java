@@ -38,7 +38,7 @@ public class Board {
         if(isOccupied(toX, toY)) {;
             System.out.println("KOLIZJA");
             Animal opponent = getAnimal(toX, toY);
-            if(relocated.getFoodType().equals("herbs") && opponent.getFoodType().equals("herbs")) {
+            if(relocated.getFoodType().equals("herbs") && (opponent.getFoodType().equals("herbs") || opponent.getFoodType().equals("meat"))){
                 System.out.println("ROSLINO");
                 System.out.println("find blad");
                 int[] moveNearby = findEmptyPosition(relocated);
@@ -61,6 +61,7 @@ public class Board {
                     animals[toX][toY] = relocated;
                     removeAnimal(fromX, fromY);
                 } else if(loser == relocated) {
+                    System.out.println("Przegral atakujacy");
                     removeLoserAnimal(relocated);
                 }
             } else if(relocated.getFoodType().equals("meat") && opponent.getFoodType().equals("meat")) {
@@ -71,12 +72,155 @@ public class Board {
                     animals[toX][toY] = relocated;
                     removeAnimal(fromX, fromY);
                 } else if(loser == relocated) {
+                    System.out.println("Przegral atakujacy");
                     removeLoserAnimal(relocated);
                 }
             }
         } else {
             animals[toX][toY] = relocated;
             removeAnimal(fromX, fromY);
+            boolean attack = false;
+            if (relocated.symbol.equals("F")){
+                int[] arr = ((Fox)relocated).hunt(relocated.getX(), relocated.getY());
+                for (int i = 0; i < 4; i++) {
+                    int huntX = arr[i*2];
+                    int huntY = arr[i*2+1];
+                    if ((huntX < 0 || huntX > Board.getWidth() - 1) || (huntY < 0 || huntY > Board.getWidth() - 1)) {
+                        continue;
+                    }
+                    else {
+                        if (isOccupied(huntX,huntY) && !attack){
+                            attack = true;
+                            System.out.println("KOLIZJA ZE ZWIERZECIEM Z hunt()");
+                            Animal opponent = getAnimal(huntX,huntY);
+                            System.out.println(relocated.symbol+" zaatakowal"+opponent.symbol);
+                            if(opponent.getFoodType().equals("herbs")) {
+                                System.out.println("MIESO/ROSLINO");
+                                Animal loser = relocated.fightLoser(opponent);
+                                if(loser == opponent) {
+                                    removeLoserAnimal(opponent);
+                                    animals[huntX][huntY] = relocated;
+                                    removeAnimal(toX, toY);
+                                    System.out.println("Przegral:");
+                                    System.out.println(opponent.symbol);
+                                } else if(loser == relocated) {
+                                    System.out.println("Ucieczka/Przegral:");
+                                    System.out.println(relocated.symbol);
+                                    int[] esc;
+                                    if (opponent.symbol.equals("H")) {
+                                        esc = ((Hare) opponent).escape(opponent.getX(), opponent.getY());
+                                    } else {
+                                        esc = ((RoeDeer) opponent).escape(opponent.getX(), opponent.getY());
+                                    }
+                                    for (int j = 0; j < 4; j++) {
+                                        int escX = esc[j * 2];
+                                        int escY = esc[j * 2 + 1];
+                                        if ((escX < 0 || escX > Board.getWidth() - 1) || (escY < 0 || escY > Board.getWidth() - 1)) {
+                                            continue;
+                                        }
+                                        else {
+                                            if (!isOccupied(escX,escY)){
+                                                int newX = opponent.getX();
+                                                int newY = opponent.getY();
+                                                opponent.setX(escX);
+                                                opponent.setY(escY);
+                                                animals[escX][escY] = opponent;
+                                                removeAnimal(newX,newY);
+                                                System.out.println("Ucieczka dziala");
+                                                break;
+                                            }
+                                        }
+                                    }
+                                }
+                            } else if (opponent.getFoodType().equals("meat")) {
+                                System.out.println("MIESO");
+                                Animal loser = relocated.fightLoser(opponent);
+                                if (loser == opponent) {
+                                    removeLoserAnimal(opponent);
+                                    animals[huntX][huntY] = relocated;
+                                    removeAnimal(toX, toY);
+                                    System.out.println("Przegral:");
+                                    System.out.println(opponent.symbol);
+                                } else if (loser == relocated) {
+                                    removeLoserAnimal(relocated);
+                                    System.out.println("Przegral:");
+                                    System.out.println(relocated.symbol);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            if (relocated.symbol.equals("W")) {
+                int[] arr = ((Wolf) relocated).hunt(relocated.getX(), relocated.getY());
+                for (int i = 0; i < 8; i++) {
+                    int huntX = arr[i * 2];
+                    int huntY = arr[i * 2 + 1];
+                    if ((huntX < 0 || huntX > Board.getWidth() - 1) || (huntY < 0 || huntY > Board.getWidth() - 1)) {
+                        continue;
+                    } else {
+                        if (isOccupied(huntX, huntY) && !attack) {
+                            attack = true;
+                            System.out.println("KOLIZJA ZE ZWIERZECIEM Z hunt()");
+                            Animal opponent = getAnimal(huntX, huntY);
+                            System.out.println("walka "+relocated.symbol+" oraz "+opponent.symbol);
+                            if (opponent.getFoodType().equals("herbs")) {
+                                System.out.println("MIESO/ROSLINO");
+                                Animal loser = relocated.fightLoser(opponent);
+                                if (loser == opponent) {
+                                    removeLoserAnimal(opponent);
+                                    animals[huntX][huntY] = relocated;
+                                    removeAnimal(toX, toY);
+                                    System.out.println("Przegral:");
+                                    System.out.println(opponent.symbol);
+                                } else if (loser == relocated) {
+                                    System.out.println("Ucieczka/Przegral:");
+                                    System.out.println(relocated.symbol);
+                                    int[] esc;
+                                    if (opponent.symbol.equals("H")) {
+                                        esc = ((Hare) opponent).escape(opponent.getX(), opponent.getY());
+                                    } else {
+                                        esc = ((RoeDeer) opponent).escape(opponent.getX(), opponent.getY());
+                                    }
+                                    for (int j = 0; j < 4; j++) {
+                                        int escX = esc[j * 2];
+                                        int escY = esc[j * 2 + 1];
+                                        if ((escX < 0 || escX > Board.getWidth() - 1) || (escY < 0 || escY > Board.getWidth() - 1)) {
+                                            continue;
+                                        }
+                                        else {
+                                            if (!isOccupied(escX,escY)){
+                                                int newX = opponent.getX();
+                                                int newY = opponent.getY();
+                                                opponent.setX(escX);
+                                                opponent.setY(escY);
+                                                animals[escX][escY] = opponent;
+                                                removeAnimal(newX,newY);
+                                                System.out.println("Ucieczka dziala");
+                                                break;
+                                            }
+                                        }
+                                    }
+                                }
+                            } else if (opponent.getFoodType().equals("meat")) {
+                                System.out.println("MIESO");
+                                Animal loser = relocated.fightLoser(opponent);
+                                if (loser == opponent) {
+                                    removeLoserAnimal(opponent);
+                                    animals[huntX][huntY] = relocated;
+                                    removeAnimal(toX, toY);
+                                    System.out.println("Przegral:");
+                                    System.out.println(opponent.symbol);
+                                } else if (loser == relocated) {
+                                    removeLoserAnimal(relocated);
+                                    System.out.println("Przegral:");
+                                    System.out.println(relocated.symbol);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
     public boolean isOccupied(int x, int y) {
