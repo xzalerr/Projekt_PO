@@ -60,20 +60,48 @@ public class Board {
                     removeLoserAnimal(opponent);
                     animals[toX][toY] = relocated;
                     removeAnimal(fromX, fromY);
+                    opponent.setActive(false);
                 } else if(loser == relocated) {
-                    System.out.println("Przegral atakujacy");
-                    removeLoserAnimal(relocated);
+                    System.out.println(relocated.symbol + "(atakujacy) przegral z: " + opponent.symbol);
+                    animals[toX][toY] = relocated;
+                    int[] esc;
+                    if (opponent.symbol.equals("H")) {
+                        esc = ((Hare) opponent).escape(opponent.getX(), opponent.getY());
+                    } else {
+                        esc = ((RoeDeer) opponent).escape(opponent.getX(), opponent.getY());
+                    }
+                    for (int j = 0; j < 4; j++) {
+                        int escX = esc[j * 2];
+                        int escY = esc[j * 2 + 1];
+                        if ((escX < 0 || escX > Board.getWidth() - 1) || (escY < 0 || escY > Board.getWidth() - 1)) {
+                            continue;
+                        }
+                        else {
+                            if (!isOccupied(escX,escY)){
+                                int newX = opponent.getX();
+                                int newY = opponent.getY();
+                                opponent.setX(escX);
+                                opponent.setY(escY);
+                                animals[escX][escY] = opponent;
+                                removeAnimal(fromX,fromY);
+                                System.out.println(opponent.symbol + " uciekł!");
+                                break;
+                            }
+                        }
+                    }
                 }
             } else if(relocated.getFoodType().equals("meat") && opponent.getFoodType().equals("meat")) {
                 System.out.println("MIESO");
                 Animal loser = relocated.fightLoser(opponent);
                 if(loser == opponent) {
                     removeLoserAnimal(opponent);
+                    opponent.setActive(false);
                     animals[toX][toY] = relocated;
                     removeAnimal(fromX, fromY);
                 } else if(loser == relocated) {
-                    System.out.println("Przegral atakujacy");
-                    removeLoserAnimal(relocated);
+                    System.out.println(relocated.symbol + " zaatakował i przegrał z: " + opponent.symbol);
+                    removeAnimal(fromX, fromY);
+                    relocated.setActive(false);
                 }
             }
         } else {
@@ -103,6 +131,7 @@ public class Board {
                                     removeAnimal(toX, toY);
                                     System.out.println("Przegral:");
                                     System.out.println(opponent.symbol);
+                                    opponent.setActive(false);
                                 } else if(loser == relocated) {
                                     System.out.println("Ucieczka/Przegral:");
                                     System.out.println(relocated.symbol);
@@ -139,10 +168,12 @@ public class Board {
                                     removeLoserAnimal(opponent);
                                     animals[huntX][huntY] = relocated;
                                     removeAnimal(toX, toY);
+                                    opponent.setActive(false);
                                     System.out.println("Przegral:");
                                     System.out.println(opponent.symbol);
                                 } else if (loser == relocated) {
                                     removeLoserAnimal(relocated);
+                                    relocated.setActive(false);
                                     System.out.println("Przegral:");
                                     System.out.println(relocated.symbol);
                                 }
@@ -171,6 +202,7 @@ public class Board {
                                     removeLoserAnimal(opponent);
                                     animals[huntX][huntY] = relocated;
                                     removeAnimal(toX, toY);
+                                    opponent.setActive(false);
                                     System.out.println("Przegral:");
                                     System.out.println(opponent.symbol);
                                 } else if (loser == relocated) {
@@ -209,10 +241,12 @@ public class Board {
                                     removeLoserAnimal(opponent);
                                     animals[huntX][huntY] = relocated;
                                     removeAnimal(toX, toY);
+                                    opponent.setActive(false);
                                     System.out.println("Przegral:");
                                     System.out.println(opponent.symbol);
                                 } else if (loser == relocated) {
                                     removeLoserAnimal(relocated);
+                                    relocated.setActive(false);
                                     System.out.println("Przegral:");
                                     System.out.println(relocated.symbol);
                                 }

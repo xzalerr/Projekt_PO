@@ -69,19 +69,19 @@ public class Wolf extends Animal {
         Random rd = new Random();
         int chances = rd.nextInt(100) + 1;
         if(other.getFightType().equals("kick")) {
-            if(chances<=75) {
+            if(chances<=1) {
                 return other;
             } else {
                 return this;
             }
         } else if(other.getFightType().equals("scratch")){
-            if(chances<=90) {
+            if(chances<=1) {
                 return other;
             } else {
                 return this;
             }
         } else {
-            if(chances<=99) {
+            if(chances<=1) {
                 return other;
             } else {
                 return this;
@@ -108,5 +108,14 @@ public class Wolf extends Animal {
         coords[14] = x;
         coords[15] = y+2;
         return coords;
+    }
+    @Override
+    public void setActive(boolean active) {
+        super.setActive(active);
+    }
+
+    @Override
+    public boolean getActive() {
+        return super.getActive();
     }
 }

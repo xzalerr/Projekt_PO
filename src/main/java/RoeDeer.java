@@ -88,4 +88,13 @@ public class RoeDeer  extends Animal {
         coords[7] = y-3;
         return coords;
     }
+    @Override
+    public void setActive(boolean active) {
+        super.setActive(active);
+    }
+
+    @Override
+    public boolean getActive() {
+        return super.getActive();
+    }
 }

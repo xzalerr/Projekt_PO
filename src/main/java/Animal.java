@@ -7,12 +7,21 @@ public abstract class Animal implements Existence {
     protected String foodType;
     protected String fightType;
     protected String symbol;
+    protected boolean active;
     public Animal(int x, int y, int movementSpeed, String foodType, String fightType) {
         this.x = x;
         this.y = y;
         this.movementSpeed = movementSpeed;
         this.foodType = foodType;
         this.fightType = fightType;
+        this.active = true;
+    }
+
+    public boolean getActive() {
+        return active;
+    }
+    public void setActive(boolean active) {
+        this.active = active;
     }
     public int genDirection(int max) {
         Random rd = new Random();

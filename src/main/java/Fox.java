@@ -95,4 +95,14 @@ public class Fox extends Animal {
         coords[7] = y+1;
         return coords;
     }
+
+    @Override
+    public void setActive(boolean active) {
+        super.setActive(active);
+    }
+
+    @Override
+    public boolean getActive() {
+        return super.getActive();
+    }
 }
