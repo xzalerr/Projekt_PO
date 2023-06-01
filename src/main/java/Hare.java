@@ -2,10 +2,11 @@ import java.util.Random;
 
 public class Hare extends Animal {
     private int escapeRange;
-    public Hare(int x, int y, int movementSpeed, String foodType, String fightType, int escapeRange) {
+    public Hare(int x, int y, int movementSpeed, String foodType, String fightType) {
         super(x, y, movementSpeed, foodType, fightType);
-        this.escapeRange = escapeRange;
+        this.escapeRange = 2;
         this.symbol = "H";
+        this.active = true;
     }
     @Override
     public int genDirection(int max) {
@@ -37,6 +38,7 @@ public class Hare extends Animal {
         return super.getFightType();
     }
 
+
     @Override
     public void move(int x, int y) {
         int direction = genDirection(2);
@@ -47,6 +49,7 @@ public class Hare extends Animal {
             this.x -= movementSpeed;
             this.y -=movementSpeed;
         }
+        //sprawdzenie czy zwierze wyszlo za plansze i jesli tak to przeniesienie go na druga strone
         if(this.x>=Board.getWidth()) {
             this.x -= Board.getWidth();
         } else if(this.x < 0) {
@@ -61,6 +64,7 @@ public class Hare extends Animal {
 
     @Override
     public Animal fightLoser(Animal other) {
+        //zwraca przegranego w sposob losowy ale na podstawie okreslonych szans w zaleznosci od rodzaju ataku
         Random rd = new Random();
         int chances = rd.nextInt(100) + 1;
         if(other.getFightType().equals("bite")) {
@@ -79,6 +83,10 @@ public class Hare extends Animal {
     }
 
     public int[] escape(int x, int y) {
+        //tablica koordynatow, gdzie pozniej sprawdzana jest wolne pole do ucieczki
+        //tutaj implementacja jest niepelna, bo beda sprawdzane wszystkie pola w zakresie escapeRange
+        //implememtacja metody escape jest niekompletna, nalezy uwzglednic przypadek w ktorym zwierze nie znajdzie zadnego wolnego pola w swqoim zasiegu ucieczki
+        //jednak przy malym natezeniu zwierzat, nie sprawia problemu
         int[] coords = new int[8];
         coords[0] = x-2;
         coords[1] = y;

@@ -6,6 +6,7 @@ public class Wolf extends Animal {
         super(x, y, movementSpeed, foodType, fightType);
         this.huntingRange = 2;
         this.symbol = "W";
+        this.active = true;
     }
     @Override
     public int genDirection(int max) {
@@ -52,6 +53,7 @@ public class Wolf extends Animal {
            this.x -= movementSpeed;
            this.y +=movementSpeed;
        }
+       //sprawdzenie czy zwierze wyszlo za plansze i jesli tak to przeniesienie go na druga strone
        if(this.x>=Board.getWidth()) {
           this.x -= Board.getWidth();
        } else if(this.x < 0) {
@@ -66,22 +68,23 @@ public class Wolf extends Animal {
 
     @Override
     public Animal fightLoser(Animal other) {
+        //zwraca przegranego w sposob losowy ale na podstawie okreslonych szans w zaleznosci od rodzaju ataku
         Random rd = new Random();
         int chances = rd.nextInt(100) + 1;
         if(other.getFightType().equals("kick")) {
-            if(chances<=1) {
+            if(chances<=75) {
                 return other;
             } else {
                 return this;
             }
         } else if(other.getFightType().equals("scratch")){
-            if(chances<=1) {
+            if(chances<=90) {
                 return other;
             } else {
                 return this;
             }
         } else {
-            if(chances<=1) {
+            if(chances<=99) {
                 return other;
             } else {
                 return this;
@@ -90,6 +93,8 @@ public class Wolf extends Animal {
     }
 
     public int[] hunt(int x, int y) {
+        //tablica koordynatow, gdzie pozniej sprawdzana jest obecnosc potencjalnych ofiar
+        //tutaj implementacja jest niepelna, bo beda sprawdzane wszystkie pola w zakresie huntingRange
         int[] coords = new int[16];
         coords[0] = x-1;
         coords[1] = y;

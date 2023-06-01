@@ -2,10 +2,11 @@ import java.util.Random;
 
 public class RoeDeer  extends Animal {
     private int escapeRange;
-    public RoeDeer(int x, int y, int movementSpeed, String foodType, String fightType, int escapeRange) {
+    public RoeDeer(int x, int y, int movementSpeed, String foodType, String fightType) {
         super(x, y, movementSpeed, foodType, fightType);
-        this.escapeRange = escapeRange;
+        this.escapeRange = 3;
         this.symbol = "R";
+        this.active = true;
     }
     @Override
     public int genDirection(int max) {
@@ -46,6 +47,7 @@ public class RoeDeer  extends Animal {
         } else {
             this.y +=movementSpeed;
         }
+        //sprawdzenie czy zwierze wyszlo za plansze i jesli tak to przeniesienie go na druga strone
         if(this.x>=Board.getWidth()) {
             this.x -= Board.getWidth();
         } else if(this.x < 0) {
@@ -60,6 +62,7 @@ public class RoeDeer  extends Animal {
 
     @Override
     public Animal fightLoser(Animal other) {
+        //zwraca przegranego w sposob losowy ale na podstawie okreslonych szans w zaleznosci od rodzaju ataku
         Random rd = new Random();
         int chances = rd.nextInt(100) + 1;
         if(other.getFightType().equals("bite")) {
@@ -77,6 +80,10 @@ public class RoeDeer  extends Animal {
         }
     }
     public int[] escape(int x, int y) {
+        //tablica koordynatow, gdzie pozniej sprawdzana jest wolne pole do ucieczki
+        //tutaj implementacja jest niepelna, bo beda sprawdzane wszystkie pola w zakresie escapeRange
+        //implememtacja metody escape jest niekompletna, nalezy uwzglednic przypadek w ktorym zwierze nie znajdzie zadnego wolnego pola w swqoim zasiegu ucieczki
+        //jednak przy malym natezeniu zwierzat, nie sprawia problemu
         int[] coords = new int[8];
         coords[0] = x-3;
         coords[1] = y;

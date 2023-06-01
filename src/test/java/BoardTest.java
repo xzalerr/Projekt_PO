@@ -8,7 +8,7 @@ class BoardTest {
     void moveAnimalTest() {
         Board board = new Board(10, 10);
         Animal wolf = new Wolf(0, 0, 2, "meat", "bite");
-        Animal roeDeer = new RoeDeer(5, 5, 3, "herbs", "kick", 3);
+        Animal roeDeer = new RoeDeer(5, 5, 3, "herbs", "kick");
         board.addAnimal(wolf, wolf.getX(), wolf.getY());
         board.addAnimal(roeDeer, roeDeer.getX(), roeDeer.getY());
         board.moveAnimal(0, 0);

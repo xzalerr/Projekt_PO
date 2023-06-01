@@ -6,6 +6,7 @@ public class Fox extends Animal {
         super(x, y, movementSpeed, foodType, fightType);
         this.huntingRange = 1;
         this.symbol = "F";
+        this.active = true;
     }
     @Override
     public int genDirection(int max) {
@@ -36,6 +37,8 @@ public class Fox extends Animal {
         return super.getFightType();
     }
 
+
+
     @Override
     public void move(int x, int y) {
         int direction = genDirection(2);
@@ -46,6 +49,7 @@ public class Fox extends Animal {
             this.x += movementSpeed;
             this.y -=movementSpeed;
         }
+        //sprawdzenie czy zwierze wyszlo za plansze i jesli tak to przeniesienie go na druga strone
         if(this.x>=Board.getWidth()) {
             this.x -= Board.getWidth();
         } else if(this.x < 0) {
@@ -60,6 +64,7 @@ public class Fox extends Animal {
 
     @Override
     public Animal fightLoser(Animal other) {
+        //zwraca przegranego w sposob losowy ale na podstawie okreslonych szans w zaleznosci od rodzaju ataku
         Random rd = new Random();
         int chances = rd.nextInt(100) + 1;
         if(other.getFightType().equals("kick")) {
@@ -84,6 +89,8 @@ public class Fox extends Animal {
     }
 
     public int[] hunt(int x, int y) {
+        //tablica koordynatow, gdzie pozniej sprawdzana jest obecnosc potencjalnych ofiar
+        //tutaj implementacja jest niepelna, bo beda sprawdzane wszystkie pola w zakresie huntingRange
         int[] coords = new int[8];
         coords[0] = x-1;
         coords[1] = y;
