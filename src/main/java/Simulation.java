@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 public class Simulation {
     private Board board;
@@ -42,14 +43,20 @@ public class Simulation {
         for (Animal animal : species) {
             board.addAnimal(animal, animal.getX(), animal.getY());
         }
+        System.out.println("Pozycje zwierząt przed rozpoczęciem:");
+        displayBoard(board);
         for(int i = 0; i < numberOfTurns; i++) {
+            if(endSimulation(board)) {
+                System.out.println("Symulacja zakończona, pozostał tylko jeden gatunek zwierząt.");
+                break;
+            }
             System.out.println("TURA NR: " + (i+1));
             for (Animal animal : species) {
-                displayBoard(board);
                 int x = animal.getX();
                 int y = animal.getY();
-                if (board.getAnimal(x, y) != null && board.getAnimal(x, y).getActive()) {
+                if (board.getAnimal(x, y) != null && animal.getActive()) {
                     board.moveAnimal(x, y);
+                    displayBoard(board);
                 }
             }
         }
@@ -69,8 +76,35 @@ public class Simulation {
         }
         System.out.println();
     }
-    public void endSimulation() {
-        //metoda nie zaimplementowana, bedzie sluzyla do zakonczenia symulacji jesli pozostanie jeden gatunek zwierzecia na mapie
+    public boolean endSimulation(Board board) {
+        int[] alive = {0, 0, 0, 0};
+        int species = 0;
+        for (int y = 0; y < board.getHeight(); y++) {
+            for (int x = 0; x < board.getWidth(); x++) {
+                Animal animal = board.getAnimal(x, y);
+                if(animal != null) {
+                    if (animal.symbol == "W") {
+                        alive[0]++;
+                    } else if(animal.symbol == "F") {
+                        alive[1]++;
+                    } else if(animal.symbol == "R") {
+                        alive[2]++;
+                    } else if (animal.symbol == "H"){
+                        alive[3]++;
+                    }
+                }
+            }
+        }
+        for(int i = 0; i < 4; i++) {
+            if(alive[i] > 0) {
+                species++;
+            }
+        }
+        if(species == 1) {
+            return true;
+        } else {
+            return false;
+        }
     }
     public void addAnimal(Animal animal) {
         species.add(animal);

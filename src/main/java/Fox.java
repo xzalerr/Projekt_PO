@@ -91,15 +91,28 @@ public class Fox extends Animal {
     public int[] hunt(int x, int y) {
         //tablica koordynatow, gdzie pozniej sprawdzana jest obecnosc potencjalnych ofiar
         //tutaj implementacja jest niepelna, bo beda sprawdzane wszystkie pola w zakresie huntingRange
-        int[] coords = new int[8];
-        coords[0] = x-1;
-        coords[1] = y;
-        coords[2] = x+1;
-        coords[3] = y;
-        coords[4] = x;
-        coords[5] = y-1;
-        coords[6] = x;
-        coords[7] = y+1;
+        int[] coords = new int[8*this.huntingRange];
+        int licznik = 0;
+        for (int i=0;i<huntingRange;i++){
+            coords[licznik] = x-i-1;
+            coords[licznik+1] = y;
+            licznik+=2;
+        }
+        for (int i=0;i<huntingRange;i++){
+            coords[licznik] = x+i+1;
+            coords[licznik+1] = y;
+            licznik+=2;
+        }
+        for (int i=0;i<huntingRange;i++){
+            coords[licznik] = x;
+            coords[licznik+1] = y-i-1;
+            licznik+=2;
+        }
+        for (int i=0;i<huntingRange;i++){
+            coords[licznik] = x;
+            coords[licznik+1] = y+i+1;
+            licznik+=2;
+        }
         return coords;
     }
 

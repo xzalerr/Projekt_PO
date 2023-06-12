@@ -95,23 +95,28 @@ public class Wolf extends Animal {
     public int[] hunt(int x, int y) {
         //tablica koordynatow, gdzie pozniej sprawdzana jest obecnosc potencjalnych ofiar
         //tutaj implementacja jest niepelna, bo beda sprawdzane wszystkie pola w zakresie huntingRange
-        int[] coords = new int[16];
-        coords[0] = x-1;
-        coords[1] = y;
-        coords[2] = x-2;
-        coords[3] = y;
-        coords[4] = x+1;
-        coords[5] = y;
-        coords[6] = x+2;
-        coords[7] = y;
-        coords[8] = x;
-        coords[9] = y-1;
-        coords[10] = x;
-        coords[11] = y-2;
-        coords[12] = x;
-        coords[13] = y+1;
-        coords[14] = x;
-        coords[15] = y+2;
+        int[] coords = new int[8*this.huntingRange];
+        int licznik = 0;
+        for (int i=0;i<huntingRange;i++){
+            coords[licznik] = x-i-1;
+            coords[licznik+1] = y;
+            licznik+=2;
+        }
+        for (int i=0;i<huntingRange;i++){
+            coords[licznik] = x+i+1;
+            coords[licznik+1] = y;
+            licznik+=2;
+        }
+        for (int i=0;i<huntingRange;i++){
+            coords[licznik] = x;
+            coords[licznik+1] = y-i-1;
+            licznik+=2;
+        }
+        for (int i=0;i<huntingRange;i++){
+            coords[licznik] = x;
+            coords[licznik+1] = y+i+1;
+            licznik+=2;
+        }
         return coords;
     }
     @Override

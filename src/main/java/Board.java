@@ -132,16 +132,18 @@ public class Board {
                         continue;
                     }
                     else {
-                        if (isOccupied(huntX,huntY) && !attack){
+                        if (isOccupied(huntX,huntY) && !attack) {
                             attack = true;
                             System.out.println("F zapolowal:");
-                            Animal opponent = getAnimal(huntX,huntY);
-                            System.out.println(relocated.symbol+" zaatakowal: "+opponent.symbol);
+                            Animal opponent = getAnimal(huntX, huntY);
+                            System.out.println(relocated.symbol + " zaatakowal: " + opponent.symbol);
                             if(opponent.getFoodType().equals("herbs")) {
                                 Animal loser = relocated.fightLoser(opponent);
                                 if(loser == opponent) {
                                     removeLoserAnimal(opponent);
                                     animals[huntX][huntY] = relocated;
+                                    relocated.setX(huntX);
+                                    relocated.setY(huntY);
                                     removeAnimal(toX, toY);
                                     System.out.println("Przegral: " + opponent.symbol);
                                     opponent.setActive(false);
@@ -174,11 +176,13 @@ public class Board {
                                         }
                                     }
                                 }
-                            } else if (opponent.getFoodType().equals("meat")) {
+                            } else if (opponent.getFoodType().equals("meat") && (relocated.symbol != opponent.symbol)) {
                                 Animal loser = relocated.fightLoser(opponent);
                                 if (loser == opponent) {
                                     removeLoserAnimal(opponent);
                                     animals[huntX][huntY] = relocated;
+                                    relocated.setX(huntX);
+                                    relocated.setY(huntY);
                                     removeAnimal(toX, toY);
                                     opponent.setActive(false);
                                     System.out.println("Przegral: " + opponent.symbol);
@@ -211,6 +215,8 @@ public class Board {
                                 if (loser == opponent) {
                                     removeLoserAnimal(opponent);
                                     animals[huntX][huntY] = relocated;
+                                    relocated.setX(huntX);
+                                    relocated.setY(huntY);
                                     removeAnimal(toX, toY);
                                     opponent.setActive(false);
                                     System.out.println("Przegral: " + opponent.symbol);
@@ -243,12 +249,13 @@ public class Board {
                                         }
                                     }
                                 }
-                            } else if (opponent.getFoodType().equals("meat")) {
-                                System.out.println("MIESO");
+                            } else if (opponent.getFoodType().equals("meat") && (relocated.symbol != opponent.symbol)) {
                                 Animal loser = relocated.fightLoser(opponent);
                                 if (loser == opponent) {
                                     removeLoserAnimal(opponent);
                                     animals[huntX][huntY] = relocated;
+                                    relocated.setX(huntX);
+                                    relocated.setY(huntY);
                                     removeAnimal(toX, toY);
                                     opponent.setActive(false);
                                     System.out.println("Przegral: " + opponent.symbol);
@@ -257,6 +264,8 @@ public class Board {
                                     relocated.setActive(false);
                                     System.out.println("Przegral: " + relocated.symbol);
                                 }
+                            } else {
+                                System.out.println("Zrezygnował z polowania bo zobaczyl ze to ten sam gatunek.");
                             }
                         }
                     }
