@@ -36,7 +36,7 @@ public class RoeDeer  extends Animal {
     public String getFightType() {
         return super.getFightType();
     }
-
+    //metoda move wykorzystuje metode genDirection, i na podstawie wylosowanej liczby decyduje, w jakim kierunku przemiesci sie zwierze
     @Override
     public void move(int x, int y) {
         int direction = genDirection(3);
@@ -59,10 +59,9 @@ public class RoeDeer  extends Animal {
             this.y += Board.getHeight();
         }
     }
-
+    // fightLoser zwraca przegranego w sposob losowy ale na podstawie okreslonych szans w zaleznosci od rodzaju ataku
     @Override
     public Animal fightLoser(Animal other) {
-        //zwraca przegranego w sposob losowy ale na podstawie okreslonych szans w zaleznosci od rodzaju ataku
         Random rd = new Random();
         int chances = rd.nextInt(100) + 1;
         if(other.getFightType().equals("bite")) {
@@ -79,20 +78,17 @@ public class RoeDeer  extends Animal {
             }
         }
     }
+    //metoda escape zwraca tablice koordynatów, prezentującą gdzie zwierzę ma możliwe pola do ucieczki w zależności od jego zasięgu uczieczki
     public int[] escape(int x, int y) {
-        //tablica koordynatow, gdzie pozniej sprawdzana jest wolne pole do ucieczki
-        //tutaj implementacja jest niepelna, bo beda sprawdzane wszystkie pola w zakresie escapeRange
-        //implememtacja metody escape jest niekompletna, nalezy uwzglednic przypadek w ktorym zwierze nie znajdzie zadnego wolnego pola w swqoim zasiegu ucieczki
-        //jednak przy malym natezeniu zwierzat, nie sprawia problemu
         int[] coords = new int[8];
-        coords[0] = x-3;
+        coords[0] = x-this.escapeRange;
         coords[1] = y;
-        coords[2] = x+3;
+        coords[2] = x+this.escapeRange;
         coords[3] = y;
         coords[4] = x;
-        coords[5] = y+3;
+        coords[5] = y+this.escapeRange;
         coords[6] = x;
-        coords[7] = y-3;
+        coords[7] = y-this.escapeRange;
         return coords;
     }
     @Override

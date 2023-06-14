@@ -36,7 +36,7 @@ public class Wolf extends Animal {
     public String getFightType() {
         return super.getFightType();
     }
-
+    //metoda move wykorzystuje metode genDirection, i na podstawie wylosowanej liczby decyduje, w jakim kierunku przemiesci sie zwierze
     @Override
     public void move(int x, int y) {
        int direction = genDirection(4);
@@ -65,10 +65,9 @@ public class Wolf extends Animal {
            this.y += Board.getHeight();
        }
     }
-
+    // fightLoser zwraca przegranego w sposob losowy ale na podstawie okreslonych szans w zaleznosci od rodzaju ataku
     @Override
     public Animal fightLoser(Animal other) {
-        //zwraca przegranego w sposob losowy ale na podstawie okreslonych szans w zaleznosci od rodzaju ataku
         Random rd = new Random();
         int chances = rd.nextInt(100) + 1;
         if(other.getFightType().equals("kick")) {
@@ -91,10 +90,8 @@ public class Wolf extends Animal {
             }
         }
     }
-
+    //hunt zwraca tablice koordynatow, gdzie pozniej, w trakcie poruszania na planszy, sprawdzana jest obecnosc potencjalnych ofiar
     public int[] hunt(int x, int y) {
-        //tablica koordynatow, gdzie pozniej sprawdzana jest obecnosc potencjalnych ofiar
-        //tutaj implementacja jest niepelna, bo beda sprawdzane wszystkie pola w zakresie huntingRange
         int[] coords = new int[8*this.huntingRange];
         int licznik = 0;
         for (int i=0;i<huntingRange;i++){

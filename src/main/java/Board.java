@@ -7,16 +7,16 @@ public class Board {
         this.height = height;
         this.animals = new Animal[width][height];
     }
+    //metoda addAnimal dodaje zwierze w konkretne miejsce na planszy
     public void addAnimal(Animal animal, int x, int y) {
-        //metoda dodaje zwierze w konkretne miejsce na planszy
         animals[x][y] = animal;
     }
+    //metoda removeAnimal usuwa zwierze z miejsca na planszy po przegranej walce
     public void removeAnimal(int x, int y) {
-        //metoda usuwa zwierze z miejsca na planszy po przegranej walce
         animals[x][y] = null;
     }
+    //metoda removeLoserAnimal usuwa zwierze z miejsca na planszy po przegranej walce, wykorzystywana gdy chemy usunac konkretne zwierze bez koniecznosci pobierania jego wspolrzednych
     public void removeLoserAnimal(Animal loser) {
-        //metoda usuwa zwierze z miejsca na planszy po przegranej walce
         animals[loser.getX()][loser.getY()] = null;
     }
     public void moveAnimal(int fromX, int fromY) {
@@ -54,6 +54,8 @@ public class Board {
                     animals[toX][toY] = relocated;
                     removeAnimal(fromX, fromY);
                 } else {
+                    relocated.setX(fromX);
+                    relocated.setY(fromY);
                     return;
                 }
                 //jesli miesozerca spotka roslinozerce to atakuje go
@@ -71,6 +73,7 @@ public class Board {
                 } else if(loser == relocated) {
                     System.out.println(relocated.symbol + "(atakujacy) przegral z: " + opponent.symbol);
                     animals[toX][toY] = relocated;
+                    removeAnimal(fromX, fromY);
                     //implememtacja metody escape jest niekompletna, nalezy uwzglednic przypadek w ktorym zwierze nie znajdzie zadnego wolnego pola w swqoim zasiegu ucieczki
                     //jednak przy malym natezeniu zwierzat, nie sprawia problemu
                     int[] esc;
@@ -92,7 +95,7 @@ public class Board {
                                 opponent.setX(escX);
                                 opponent.setY(escY);
                                 animals[escX][escY] = opponent;
-                                removeAnimal(fromX,fromY);
+                                //removeAnimal(fromX,fromY);
                                 System.out.println(opponent.symbol + " uciekł!");
                                 break;
                             }
@@ -174,6 +177,14 @@ public class Board {
                                                 break;
                                             }
                                         }
+                                        if (j == 3){
+                                            System.out.println("Brak opcji ucieczki, zwierze ginie");
+                                            removeLoserAnimal(opponent);
+                                            animals[huntX][huntY] = relocated;
+                                            removeAnimal(toX, toY);
+                                            System.out.println("Przegral: " + opponent.symbol + " Bo nie mial gdzie uciec");
+                                            opponent.setActive(false);
+                                        }
                                     }
                                 }
                             } else if (opponent.getFoodType().equals("meat") && (relocated.symbol != opponent.symbol)) {
@@ -247,6 +258,14 @@ public class Board {
                                                 break;
                                             }
                                         }
+                                        if (j == 3){
+                                            System.out.println("Brak opcji ucieczki, zwierze ginie");
+                                            removeLoserAnimal(opponent);
+                                            animals[huntX][huntY] = relocated;
+                                            removeAnimal(toX, toY);
+                                            System.out.println("Przegral: " + opponent.symbol + " Bo nie mial gdzie uciec");
+                                            opponent.setActive(false);
+                                        }
                                     }
                                 }
                             } else if (opponent.getFoodType().equals("meat") && (relocated.symbol != opponent.symbol)) {
@@ -273,12 +292,11 @@ public class Board {
             }
         }
     }
+    //metoda isOccupied sprawdza czy na danym polu planszy znajduje sie inne zwierze niz to ktore sie tam przemiescilo
     public boolean isOccupied(int x, int y) {
-        //metoda sprawdza czy na danym polu planszy znajduje sie inne zwierze niz to ktore sie tam przemiescilo
         return animals[x][y] != null;
     }
     public Animal getAnimal(int x, int y) {
-        //metoda sprawdza jakie zwierze znajduje sie na danym polu
         return animals[x][y];
     }
     public static int getHeight() {
@@ -287,8 +305,9 @@ public class Board {
     public static int getWidth() {
         return width;
     }
+    //metoda findEmptyPosition sprawdzajaca wszystkie wolne pola w okol pola o zadancyh wspolrzednych, jesli uda sie znalezc to zwraca jego wspolrzedne, jest wykorzystywana
+    //gdy spotka sie 2 roslinozercow lub 2 zwierzeta tego samego gatunku
     public int[] findEmptyPosition(Animal animal) {
-        //metoda sprawdzajaca wszystkie wolne pola w okol pola o zadancyh wspolrzednych, jesli uda sie znalezc to zwraca jego wspolrzedne
         int newX, newY;
         int[] emptyPosition = new int[2];
         emptyPosition[0] = animal.getX();
