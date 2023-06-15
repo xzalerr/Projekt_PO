@@ -74,8 +74,6 @@ public class Board {
                     System.out.println(relocated.symbol + "(atakujacy) przegral z: " + opponent.symbol);
                     animals[toX][toY] = relocated;
                     removeAnimal(fromX, fromY);
-                    //implememtacja metody escape jest niekompletna, nalezy uwzglednic przypadek w ktorym zwierze nie znajdzie zadnego wolnego pola w swqoim zasiegu ucieczki
-                    //jednak przy malym natezeniu zwierzat, nie sprawia problemu
                     int[] esc;
                     if (opponent.symbol.equals("H")) {
                         esc = ((Hare) opponent).escape(opponent.getX(), opponent.getY());
@@ -181,6 +179,8 @@ public class Board {
                                             System.out.println("Brak opcji ucieczki, zwierze ginie");
                                             removeLoserAnimal(opponent);
                                             animals[huntX][huntY] = relocated;
+                                            relocated.setX(huntX);
+                                            relocated.setY(huntY);
                                             removeAnimal(toX, toY);
                                             System.out.println("Przegral: " + opponent.symbol + " Bo nie mial gdzie uciec");
                                             opponent.setActive(false);
@@ -262,6 +262,8 @@ public class Board {
                                             System.out.println("Brak opcji ucieczki, zwierze ginie");
                                             removeLoserAnimal(opponent);
                                             animals[huntX][huntY] = relocated;
+                                            relocated.setX(huntX);
+                                            relocated.setY(huntY);
                                             removeAnimal(toX, toY);
                                             System.out.println("Przegral: " + opponent.symbol + " Bo nie mial gdzie uciec");
                                             opponent.setActive(false);
