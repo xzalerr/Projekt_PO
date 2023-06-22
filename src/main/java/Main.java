@@ -2,7 +2,7 @@ import java.util.Random;
 
 public class Main {
     /**
-    w metodzie main jest tworzony nowy obiekt typu Simalation i pozniej wykonywana jest symulacja na podstawie zadanych argumentow
+    w metodzie jest tworzony nowy obiekt Simalation i pozniej wykonywana jest symulacja na podstawie zadanych argumentow
     */
     public static void main(String[] args) {
         Simulation simulation = new Simulation(100);

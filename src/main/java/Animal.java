@@ -1,7 +1,10 @@
 import java.util.Random;
 
 /**
- Klasa abstrakcyjna Animal, po ktorej dziedzicza klasy konkretnych gatunkow zwierzat
+ Klasa abstrakcyjna Animal, po ktorej cechy takie jak: wpolrzedne, szybkosc poruszania, rodzaj spozywanego pokarmu,
+ rodzaj walki czy symbol oznaczajacy dane zwierze, dziedzicza klasy konkretnych gatunkow zwierzat. Konstruktor Animal
+ jest utworzony aby w klasach dziedziczacych nie nadpisywac kodu, poniewaz kazde ze zwierzat niezaleznie od gatunku posiada te atrybuty
+ (w mysl zasady DRY) Istnieja rowniez funkcje zmieniajace oraz zwracajace dane atrybuty.
  */
 public abstract class Animal implements Existence {
     /**
@@ -13,19 +16,19 @@ public abstract class Animal implements Existence {
      */
     protected int y;
     /**
-    movementSpeed okresla ile pol pokona zwierze w trakcie jednej tury
+    okresla ile pol pokona zwierze w trakcie jednej tury
      */
     protected int movementSpeed;
     /**
-    foodType okresla rodzaj spozywanego pokarmu przez konkretne zwierzeta
+    okresla rodzaj spozywanego pokarmu przez konkretne zwierzeta
     */
     protected String foodType;
     /**
-    fightType okresla rodzaj walki danego zwierzecia, ktory pozniej wplywa na szanse wygranej z innym zwierzeciem, walczacym w inny sposob
+    okresla rodzaj walki danego zwierzecia, ktory pozniej wplywa na szanse wygranej z innym zwierzeciem, walczacym w inny sposob
      */
     protected String fightType;
     /**
-    symbol to pierwsza litera nazwy gatunku zwierzecia
+    pierwsza litera nazwy gatunku zwierzecia
     */
     protected String symbol;
     /**
@@ -47,7 +50,7 @@ public abstract class Animal implements Existence {
         this.active = active;
     }
     /**
-    genDirection losuje liczbe z zadanego przedzialu <0, max), ktora pozniej okresli w ktora strone pojdzie zwierze
+     losuje liczbe z zadanego przedzialu <1, max></1,>, ktora pozniej okresli w ktora strone pojdzie zwierze
     */
     public int genDirection(int max) {
         Random rd = new Random();

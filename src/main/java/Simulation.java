@@ -3,7 +3,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 /**
- klasa ktora na podstawie zadanej liczby tur wykonuje symulacje
+ klasa ktora na podstawie zadanej liczby tur wykonuje symulacje. Jej polem jest klasa board, na obiekcie ktorej odbywa sie symulacja
 */
 public class Simulation {
     /**
@@ -19,7 +19,7 @@ public class Simulation {
         this.numberOfTurns = numberOfTurns;
     }
     /**
-    metoda startSimulation sluzaca do uruchomienia symulacji, w ktora uzytkownik moze podac parametry wejsciowe symulacji, takie jak ilosc zwierzat, czy rozmiar planszy
+    metoda sluzaca do uruchomienia symulacji, w ktora uzytkownik moze podac parametry wejsciowe symulacji, takie jak ilosc zwierzat, czy rozmiar planszy
     */
     public void startSimulation(int width, int height, int wolf, int fox, int roedeer, int hare) {
         int area = height * width;
@@ -76,7 +76,7 @@ public class Simulation {
 
     }
     /**
-    metoda generateMap tworzy plansze, po ktorej przemieszczaja sie zwierzeta z wykorzystaniem obiektu klasy Board
+    tworzy plansze, po ktorej przemieszczaja sie zwierzeta z wykorzystaniem obiektu klasy Board
     */
     public void generateMap(int width, int height) {
         Board board = new Board(width, height);
@@ -102,7 +102,7 @@ public class Simulation {
         }
     }
     /**
-    metoda displayBoard wyswietlajaca plansze
+    metoda wyswietlajaca plansze
     */
     private void displayBoard(Board board) {
         for (int y = 0; y < board.getHeight(); y++) {
@@ -152,13 +152,13 @@ public class Simulation {
         }
     }
     /**
-    metoda addAnimal dodaje zwierzeta do Listy species, która przechowuje zwierzęta biorącyce udzial w symulacji
+    dodaje zwierzeta do Listy species, która przechowuje zwierzęta biorącyce udzial w symulacji
     */
     public void addAnimal(Animal animal) {
         species.add(animal);
     }
     /**
-    public int genLocation generuje losowe wspolrzedne, ktore potem sa wykorzysywane w metodzie generateRandomFreeLocation
+    generuje losowe wspolrzedne, ktore potem sa wykorzysywane w metodzie generateRandomFreeLocation
     */
     public int[] genLocation(int width, int height) {
         int[] location = new int[2];
@@ -167,11 +167,14 @@ public class Simulation {
         location[1] = rd.nextInt(height);
         return location;
     }
+    /**
+     sprawdza czy pole jest zajete
+    */
     public boolean isFree(int[][] arr, int x, int y) {
         return arr[x][y] == 0;
     }
     /**
-    generateRandomFreeLocation, wykorzystuje metode genLocation, i losuje wspolrzedne do skutku, do momentu az nie znajdzie wolnych wspolrzednych, gdzie mozna losowo umiescic zwierze
+    wykorzystuje metode genLocation, i losuje wspolrzedne do skutku, do momentu az nie znajdzie wolnych wspolrzednych, gdzie mozna losowo umiescic zwierze
     */
     public int[] generateRandomFreeLocation(int[][] arr, int width, int height) {
         int[] location = genLocation(width, height);

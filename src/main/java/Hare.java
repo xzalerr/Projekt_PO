@@ -1,7 +1,8 @@
 import java.util.Random;
 /**
-Klasa zajaca, dziedziczaca po klasie abstrakcyjnej Animal
-*/
+ Klasa zajaca, dziedziczaca po klasie abstrakcyjnej Animal i rozszerzajaca ja o pole 'escapeRange' symbolizujace zasieg ucieczki i metode escape.
+ Dodatkowo sa zaimplementowane metody move oraz fightLoser w sposob charakterystyczny dla zwierzecia
+ */
 public class Hare extends Animal {
     /**
      Zakres ucieczki zajaca
@@ -44,7 +45,8 @@ public class Hare extends Animal {
     }
 
     /**
-     metoda move wykorzystuje metode genDirection, i na podstawie wylosowanej liczby decyduje, w jakim kierunku przemiesci sie zwierze
+     metoda wykorzystuje metode genDirection, i na podstawie wylosowanej liczby decyduje, w jakim kierunku przemiesci sie zwierze oraz sprawdze czy zwierze
+     nie wyszlo poza plansze, a gdy tak sie stanie, to przenosi je na drugi koniec planszy.
      */
     @Override
     public void move(int x, int y) {
@@ -56,7 +58,6 @@ public class Hare extends Animal {
             this.x -= movementSpeed;
             this.y -=movementSpeed;
         }
-        //sprawdzenie czy zwierze wyszlo za plansze i jesli tak to przeniesienie go na druga strone
         if(this.x>=Board.getWidth()) {
             this.x -= Board.getWidth();
         } else if(this.x < 0) {
@@ -69,7 +70,7 @@ public class Hare extends Animal {
         }
     }
     /**
-     fightLoser zwraca przegranego w sposob losowy ale na podstawie okreslonych szans w zaleznosci od rodzaju ataku
+     zwraca przegranego w sposob losowy ale na podstawie okreslonych szans w zaleznosci od rodzaju ataku
      */
     @Override
     public Animal fightLoser(Animal other) {
@@ -90,7 +91,7 @@ public class Hare extends Animal {
         }
     }
     /**
-    metoda escape zwraca tablice koordynatów, prezentującą gdzie zwierzę ma możliwe pola do ucieczki w zależności od jego zasięgu uczieczki
+    metoda zwraca tablice koordynatów, prezentującą gdzie zwierzę ma możliwe pola do ucieczki w zależności od jego zasięgu uczieczki
     */
     public int[] escape(int x, int y) {
         int[] coords = new int[8];

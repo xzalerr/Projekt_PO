@@ -1,5 +1,6 @@
 /**
-Klasa zawierajaca plansze na ktorej odbywa sie symulacja oraz liste zwierzat
+Klasa zawierajaca plansze na ktorej odbywa sie symulacja oraz liste zwierzat, plansza ma okreslone wymiary okreslone polami 'width' oraz 'height'
+ Dwuwymiarowa tablica zawiera polozenie zwierzat oraz sluzy do ich przechowywania w trakcie trwania symulacji
  */
 public class Board {
     /**
@@ -20,25 +21,27 @@ public class Board {
         this.animals = new Animal[width][height];
     }
     /**
-    metoda addAnimal dodaje zwierze w konkretne miejsce na planszy
+    metoda dodaje zwierze w konkretne miejsce na planszy
      */
     public void addAnimal(Animal animal, int x, int y) {
         animals[x][y] = animal;
     }
     /**
-     metoda removeAnimal usuwa zwierze z miejsca na planszy po przegranej walce
+     metoda usuwa zwierze z miejsca na planszy po przegranej walce
      */
     public void removeAnimal(int x, int y) {
         animals[x][y] = null;
     }
     /**
-    metoda removeLoserAnimal usuwa zwierze z miejsca na planszy po przegranej walce, wykorzystywana gdy chemy usunac konkretne zwierze bez koniecznosci pobierania jego wspolrzednych
+    metoda usuwa zwierze z miejsca na planszy po przegranej walce, wykorzystywana gdy chemy usunac konkretne zwierze bez koniecznosci pobierania jego wspolrzednych
     */
     public void removeLoserAnimal(Animal loser) {
         animals[loser.getX()][loser.getY()] = null;
     }
     /**
-    metoda porusza zwierze z punktu a do b, w zaleznosci od metody move() danego gatunku, jesli zwierzeta sie spotkaja to walcza, badz roslinozercy odchodza na inne pole niz inny roslinozerca rowniez metody polowania i ucieczki sa zaimplementowane w tej metodzie przemieszczanie zwierzecia
+    metoda porusza zwierze z punktu a do b, w zaleznosci od metody move() danego gatunku, jesli zwierzeta sie
+     spotkaja to walcza (chyba ze sa tego samego gatunku), badz roslinozercy odchodza na inne pole niz inny roslinozerca rowniez
+     metody polowania i ucieczki sa zaimplementowane w tej metodzie przemieszczanie zwierzecia
     */
     public void moveAnimal(int fromX, int fromY) {
         Animal relocated = getAnimal(fromX, fromY);
@@ -310,7 +313,7 @@ public class Board {
     }
 
     /**
-     metoda isOccupied sprawdza czy na danym polu planszy znajduje sie inne zwierze niz to ktore sie tam przemiescilo
+     metoda sprawdza czy na danym polu planszy znajduje sie inne zwierze niz to ktore sie tam przemiescilo
      */
     public boolean isOccupied(int x, int y) {
         return animals[x][y] != null;
@@ -326,7 +329,8 @@ public class Board {
     }
 
     /**
-     metoda findEmptyPosition sprawdzajaca wszystkie wolne pola w okol pola o zadancyh wspolrzednych, jesli uda sie znalezc to zwraca jego wspolrzedne, jest wykorzystywana
+     metoda sprawdzajaca wszystkie wolne pola w okol pola o zadancyh wspolrzednych, jesli uda sie znalezc to
+     zwraca jego wspolrzedne, jest wykorzystywana
      gdy spotka sie 2 roslinozercow lub 2 zwierzeta tego samego gatunku
      */
     public int[] findEmptyPosition(Animal animal) {

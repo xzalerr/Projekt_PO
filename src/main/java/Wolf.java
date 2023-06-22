@@ -1,6 +1,7 @@
 import java.util.Random;
 /**
- Klasa wilka, dziedziczaca po klasie abstrakcyjnej Animal
+ Klasa wilka, dziedziczaca po klasie abstrakcyjnej Animal i rozszerzajaca ja o pole 'huntingRange' symbolizujace zasieg polowania i metode hunt.
+ Dodatkowo sa zaimplementowane metody move oraz fightLoser w sposob charakterystyczny dla zwierzecia
  */
 public class Wolf extends Animal {
     /**
@@ -42,7 +43,8 @@ public class Wolf extends Animal {
         return super.getFightType();
     }
     /**
-     metoda move wykorzystuje metode genDirection, i na podstawie wylosowanej liczby decyduje, w jakim kierunku przemiesci sie zwierze
+     metoda wykorzystuje metode genDirection, i na podstawie wylosowanej liczby decyduje, w jakim kierunku przemiesci sie zwierze oraz sprawdze czy zwierze
+     nie wyszlo poza plansze, a gdy tak sie stanie, to przenosi je na drugi koniec planszy.
      */
     @Override
     public void move(int x, int y) {
@@ -60,7 +62,6 @@ public class Wolf extends Animal {
            this.x -= movementSpeed;
            this.y +=movementSpeed;
        }
-       //sprawdzenie czy zwierze wyszlo za plansze i jesli tak to przeniesienie go na druga strone
        if(this.x>=Board.getWidth()) {
           this.x -= Board.getWidth();
        } else if(this.x < 0) {
@@ -73,7 +74,7 @@ public class Wolf extends Animal {
        }
     }
     /**
-     fightLoser zwraca przegranego w sposob losowy ale na podstawie okreslonych szans w zaleznosci od rodzaju ataku
+      zwraca przegranego w sposob losowy ale na podstawie okreslonych szans w zaleznosci od rodzaju ataku
      */
     @Override
     public Animal fightLoser(Animal other) {
@@ -100,7 +101,7 @@ public class Wolf extends Animal {
         }
     }
     /**
-     hunt zwraca tablice koordynatow, gdzie pozniej, w trakcie poruszania na planszy, sprawdzana jest obecnosc potencjalnych ofiar
+      zwraca tablice koordynatow, gdzie pozniej, w trakcie poruszania na planszy, sprawdzana jest obecnosc potencjalnych ofiar
      */
     public int[] hunt(int x, int y) {
         int[] coords = new int[8*this.huntingRange];
