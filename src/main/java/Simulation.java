@@ -2,15 +2,25 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
-
+/**
+ klasa ktora na podstawie zadanej liczby tur wykonuje symulacje
+*/
 public class Simulation {
+    /**
+    Obiekt klasy board, przy pomocy ktorego jest pozniej wykonywana symulacja
+    */
     private Board board;
+    /**
+    liczba tur symulacji
+    */
     private int numberOfTurns;
     public List<Animal> species = new ArrayList<Animal>();
     public Simulation(int numberOfTurns) {
         this.numberOfTurns = numberOfTurns;
     }
-    //metoda startSimulation sluzaca do uruchomienia symulacji, w ktora uzytkownik moze podac parametry wejsciowe symulacji, takie jak ilosc zwierzat, czy rozmiar planszy
+    /**
+    metoda startSimulation sluzaca do uruchomienia symulacji, w ktora uzytkownik moze podac parametry wejsciowe symulacji, takie jak ilosc zwierzat, czy rozmiar planszy
+    */
     public void startSimulation(int width, int height, int wolf, int fox, int roedeer, int hare) {
         int area = height * width;
         int sum = wolf + fox + roedeer + hare;
@@ -65,7 +75,9 @@ public class Simulation {
         }
 
     }
-    //metoda generateMap tworzy plansze, po ktorej przemieszczaja sie zwierzeta z wykorzystaniem obiektu klasy Board
+    /**
+    metoda generateMap tworzy plansze, po ktorej przemieszczaja sie zwierzeta z wykorzystaniem obiektu klasy Board
+    */
     public void generateMap(int width, int height) {
         Board board = new Board(width, height);
         for (Animal animal : species) {
@@ -89,7 +101,9 @@ public class Simulation {
             }
         }
     }
-    //metoda displayBoard wyswietlajaca plansze
+    /**
+    metoda displayBoard wyswietlajaca plansze
+    */
     private void displayBoard(Board board) {
         for (int y = 0; y < board.getHeight(); y++) {
             for (int x = 0; x < board.getWidth(); x++) {
@@ -104,7 +118,9 @@ public class Simulation {
         }
         System.out.println();
     }
-    //metoda sprawdzajaca czy symulacja powinna zostac zakonczona, czyli gdy pozostal jeden gatunek zwierzat na planszy to zwraca prawde - symulacja powinna sie zakonczyc
+    /**
+    metoda sprawdzajaca czy symulacja powinna zostac zakonczona, czyli gdy pozostal jeden gatunek zwierzat na planszy to zwraca prawde - symulacja powinna sie zakonczyc
+    */
     public boolean endSimulation(Board board) {
         int[] alive = {0, 0, 0, 0};
         int species = 0;
@@ -135,11 +151,15 @@ public class Simulation {
             return false;
         }
     }
-    //metoda addAnimal dodaje zwierzeta do Listy species, która przechowuje zwierzęta biorącyce udzial w symulacji
+    /**
+    metoda addAnimal dodaje zwierzeta do Listy species, która przechowuje zwierzęta biorącyce udzial w symulacji
+    */
     public void addAnimal(Animal animal) {
         species.add(animal);
     }
-    //public int genLocation generuje losowe wspolrzedne, ktore potem sa wykorzysywane w metodzie generateRandomFreeLocation
+    /**
+    public int genLocation generuje losowe wspolrzedne, ktore potem sa wykorzysywane w metodzie generateRandomFreeLocation
+    */
     public int[] genLocation(int width, int height) {
         int[] location = new int[2];
         Random rd = new Random();
@@ -150,7 +170,9 @@ public class Simulation {
     public boolean isFree(int[][] arr, int x, int y) {
         return arr[x][y] == 0;
     }
-    //generateRandomFreeLocation, wykorzystuje metode genLocation, i losuje wspolrzedne do skutku, do momentu az nie znajdzie wolnych wspolrzednych, gdzie mozna losowo umiescic zwierze
+    /**
+    generateRandomFreeLocation, wykorzystuje metode genLocation, i losuje wspolrzedne do skutku, do momentu az nie znajdzie wolnych wspolrzednych, gdzie mozna losowo umiescic zwierze
+    */
     public int[] generateRandomFreeLocation(int[][] arr, int width, int height) {
         int[] location = genLocation(width, height);
         while (!isFree(arr, location[0], location[1])) {

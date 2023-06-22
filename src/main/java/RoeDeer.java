@@ -1,6 +1,11 @@
 import java.util.Random;
-
+/**
+ Klasa sarny, dziedziczaca po klasie abstrakcyjnej Animal
+ */
 public class RoeDeer  extends Animal {
+    /**
+     Zakres ucieczki sarny
+     */
     private int escapeRange;
     public RoeDeer(int x, int y, int movementSpeed, String foodType, String fightType) {
         super(x, y, movementSpeed, foodType, fightType);
@@ -36,7 +41,9 @@ public class RoeDeer  extends Animal {
     public String getFightType() {
         return super.getFightType();
     }
-    //metoda move wykorzystuje metode genDirection, i na podstawie wylosowanej liczby decyduje, w jakim kierunku przemiesci sie zwierze
+    /**
+     metoda move wykorzystuje metode genDirection, i na podstawie wylosowanej liczby decyduje, w jakim kierunku przemiesci sie zwierze
+     */
     @Override
     public void move(int x, int y) {
         int direction = genDirection(3);
@@ -59,7 +66,9 @@ public class RoeDeer  extends Animal {
             this.y += Board.getHeight();
         }
     }
-    // fightLoser zwraca przegranego w sposob losowy ale na podstawie okreslonych szans w zaleznosci od rodzaju ataku
+    /**
+    fightLoser zwraca przegranego w sposob losowy ale na podstawie okreslonych szans w zaleznosci od rodzaju ataku
+    */
     @Override
     public Animal fightLoser(Animal other) {
         Random rd = new Random();
@@ -78,7 +87,9 @@ public class RoeDeer  extends Animal {
             }
         }
     }
-    //metoda escape zwraca tablice koordynatów, prezentującą gdzie zwierzę ma możliwe pola do ucieczki w zależności od jego zasięgu uczieczki
+    /**
+     metoda escape zwraca tablice koordynatów, prezentującą gdzie zwierzę ma możliwe pola do ucieczki w zależności od jego zasięgu uczieczki
+     */
     public int[] escape(int x, int y) {
         int[] coords = new int[8];
         coords[0] = x-this.escapeRange;

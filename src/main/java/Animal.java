@@ -1,17 +1,36 @@
 import java.util.Random;
 
+/**
+ Klasa abstrakcyjna Animal, po ktorej dziedzicza klasy konkretnych gatunkow zwierzat
+ */
 public abstract class Animal implements Existence {
-    //x i y to współrzędne zwierząt
+    /**
+     Wspolrzedna X zwierzecia
+     */
     protected int x;
+    /**
+     Wspolrzedna Y zwierzecia
+     */
     protected int y;
-    //movementSpeed określa ile pól pokona zwierzę w trakcie jednej tury
+    /**
+    movementSpeed okresla ile pol pokona zwierze w trakcie jednej tury
+     */
     protected int movementSpeed;
+    /**
+    foodType okresla rodzaj spozywanego pokarmu przez konkretne zwierzeta
+    */
     protected String foodType;
-    //fightType określa rodzaj walki danego zwierzęcia, który później wpływa na szansę wygranej z innym zwierzęciem, walczącym w inny sposób
+    /**
+    fightType okresla rodzaj walki danego zwierzęcia, ktory pozniej wplywa na szanse wygranej z innym zwierzeciem, walczacym w inny sposób
+     */
     protected String fightType;
-    //symbol to pierwsza litera nazwy gatunku zwierzęcia
+    /**
+    symbol to pierwsza litera nazwy gatunku zwierzecia
+    */
     protected String symbol;
-    //określa czy zwierzę jest aktywne w trakcie trwania symulacji, czyli czy dalej zyje i ma sie poruszac po planszy
+    /**
+    okresla czy zwierze jest aktywne w trakcie trwania symulacji, czyli czy dalej zyje i ma sie poruszac po planszy
+    */
     protected boolean active;
     public Animal(int x, int y, int movementSpeed, String foodType, String fightType) {
         this.x = x;
@@ -27,7 +46,9 @@ public abstract class Animal implements Existence {
     public void setActive(boolean active) {
         this.active = active;
     }
-    //genDirection losuje liczbe z zadanego przedzialu <0, max), ktora pozniej okresli w ktora strone pojdzie zwierze
+    /**
+    genDirection losuje liczbe z zadanego przedzialu <0, max), ktora pozniej okresli w ktora strone pojdzie zwierze
+    */
     public int genDirection(int max) {
         Random rd = new Random();
         int direction = rd.nextInt(max) + 1;

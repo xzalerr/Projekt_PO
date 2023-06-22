@@ -1,6 +1,11 @@
 import java.util.Random;
-
+/**
+ Klasa lisa, dziedziczaca po klasie abstrakcyjnej Animal
+ */
 public class Fox extends Animal {
+    /**
+    Zakres ataku lisa
+    */
     private int huntingRange;
     public Fox(int x, int y, int movementSpeed, String foodType, String fightType) {
         super(x, y, movementSpeed, foodType, fightType);
@@ -36,7 +41,9 @@ public class Fox extends Animal {
     public String getFightType() {
         return super.getFightType();
     }
-    //metoda move wykorzystuje metode genDirection, i na podstawie wylosowanej liczby decyduje, w jakim kierunku przemiesci sie zwierze
+    /**
+    metoda move wykorzystuje metode genDirection, i na podstawie wylosowanej liczby decyduje, w jakim kierunku przemiesci sie zwierze
+    */
     @Override
     public void move(int x, int y) {
         int direction = genDirection(2);
@@ -59,7 +66,9 @@ public class Fox extends Animal {
             this.y += Board.getHeight();
         }
     }
-    // fightLoser zwraca przegranego w sposob losowy ale na podstawie okreslonych szans w zaleznosci od rodzaju ataku
+    /**
+     fightLoser zwraca przegranego w sposob losowy ale na podstawie okreslonych szans w zaleznosci od rodzaju ataku
+     */
     @Override
     public Animal fightLoser(Animal other) {
         //zwraca przegranego w sposob losowy ale na podstawie okreslonych szans w zaleznosci od rodzaju ataku
@@ -85,7 +94,9 @@ public class Fox extends Animal {
             }
         }
     }
-    //hunt zwraca tablice koordynatow, gdzie pozniej, w trakcie poruszania na planszy, sprawdzana jest obecnosc potencjalnych ofiar
+    /**
+    hunt zwraca tablice koordynatow, gdzie pozniej, w trakcie poruszania na planszy, sprawdzana jest obecnosc potencjalnych ofiar
+    */
     public int[] hunt(int x, int y) {
         int[] coords = new int[8*this.huntingRange];
         int licznik = 0;
