@@ -21,7 +21,7 @@ public abstract class Animal implements Existence {
     */
     protected String foodType;
     /**
-    fightType okresla rodzaj walki danego zwierzęcia, ktory pozniej wplywa na szanse wygranej z innym zwierzeciem, walczacym w inny sposób
+    fightType okresla rodzaj walki danego zwierzecia, ktory pozniej wplywa na szanse wygranej z innym zwierzeciem, walczacym w inny sposob
      */
     protected String fightType;
     /**
